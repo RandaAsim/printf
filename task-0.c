@@ -1,103 +1,70 @@
-#include "main.h"
 #include <stdarg.h>
 #include <unistd.h>
+#include <string.h>
+#include "main.h"
 
 /**
- * _printf - Custom printf function
- * @format: format string
- * Return: number of chat
+ *  _printf - Custom printf function
+ *  @format: Format stririg
+ *  Return: number
  */
 int _printf(const char *format, ...)
 {
-	print_str(va_list args);
 	va_list args;
-	int printed_chars = 0;
-
-	if (format == NULL)
-		return (-1);
+	int count = 0;
 
 	va_start(args, format);
-	printed_chars = parse_format(format, args);
+
+	while (*format)
+	{
+		if (*format != '%')
+		{
+			count += write(1, format, 1);
+		}
+		else
+		{
+			format++;
+
+			if (*format == 'c')
+			{
+				char c = va_arg(args, int);
+
+				count += write(1, &c, 1);
+			}
+			else if (*format == 's')
+			{
+				char *str = va_arg(args, char *);
+
+				if (str)
+					count += write(1, str, strlen(str));
+				else
+					count += write(1, "(null)", 6);
+			}
+			else if (*format == '%')
+			{
+				count += write(1, "%", 1);
+			}
+		}
+		format++;
+	}
+
 	va_end(args);
-
-	return (printed_chars);
+	return (count);
 }
 
 /**
- * parse_format - Parse format string
- * @format: format string
- * @args: arguments
- * Return: number of char
- */
-
-int parse_format(const char *format, va_list args)
-{
-	int i = 0, printed_chars = 0;
-
-	while (format && format[i])
-	{
-		if (format[i] != '%')
-		{
-			printed_chars += _putchar(format[i]);
-			i++;
-			continue;
-		}
-
-		i++;
-
-		if (format[i] == '\0')
-			return (-1);
-
-		switch (format[i])
-		{
-			case 'c':
-				printed_chars += print_char(va_arg(args, int));
-				break;
-			case 's':
-				printed_chars += print_str(va_arg(args, char *));
-				break;
-			case '%':
-				printed_chars += _putchar('%');
-				break;
-			default:
-				printed_chars += _putchar('%');
-				printed_chars += _putchar(format[i]);
-		}
-
-		i++;
-	}
-
-	return (printed_chars);
-}
-
-/**
- * print_char - Print a character to stdout
- * @c: char
- * Return: 1
- */
-int print_char(char c)
-{
-	return (_putchar(c));
-}
-
-/**
- * print_str - Print a string
+ * _strlen - Calculate the length
  * @str: string
- * Return: number
+ * Return: Lengt
  */
 
-int print_str(char *str)
+int _strlen(const char *str)
 {
-	int i = 0;
+	int len = 0;
 
-	if (str == NULL)
-		str = "(null)";
-
-	while (str[i])
+	while (str[len])
 	{
-		_putchar(str[i]);
-		i++;
+		len++;
 	}
-
-	return (i);
+	return (len);
 }
