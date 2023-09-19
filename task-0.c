@@ -52,7 +52,7 @@ unsigned int convert_sbase(buffer_r *out, long int num, char *base,
 
 /**
  * convert_ubase - Converts an unsigned long
- * @output: buffer_t struct
+ * @out: buffer_t struct
  * @num: An unsigned long
  * @base: pointer to a string
  * @flags: Flag modifiers

@@ -1,8 +1,7 @@
 #include "main.h"
 
-
 /**
- *  h_flags – Matches
+ *  h_flags – Matches inti des
  *  @flag: pointer
  *  @index: An index counter for format string
  *  Return: corresponding value or 0

@@ -50,7 +50,7 @@ typedef struct print_s
  * struct flag_s - defining a flags struct
  * @flag: character representing a flag
  * @value: value of the flag
- */
+*/
 typedef struct flag_s
 {
 	unsigned char flag;

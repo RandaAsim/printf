@@ -24,10 +24,8 @@ unsigned int print_di(va_list args, buffer_r *out,
 		d = va_arg(args, int);
 	if (len == SHORT)
 		d = (short)d;
-
 	if (SPACE_FLAG == 1 && d >= 0)
 		t += _memcpy(out, &space, 1);
-
 	if (prec <= 0 && NEG_FLAG == 0)
 	{
 		if (d == LONG_MIN)
@@ -41,30 +39,22 @@ unsigned int print_di(va_list args, buffer_r *out,
 		count += (d < 0) ? 1 : 0;
 		count += (PLUS_FLAG == 1 && d >= 0) ? 1 : 0;
 		count += (SPACE_FLAG == 1 && d >= 0) ? 1 : 0;
-
 		if (ZERO_FLAG == 1 && PLUS_FLAG == 1 && d >= 0)
 			t += _memcpy(out, &plus, 1);
-		
 		if (ZERO_FLAG == 1 && d < 0)
 			t += _memcpy(out, &neg, 1);
-
 		pad = (ZERO_FLAG == 1) ? '0' : ' ';
 		for (w -= count; w > 0; w--)
 			t += _memcpy(out, &pad, 1);
 	}
-
 	if (ZERO_FLAG == 0 && d < 0)
 		t += _memcpy(out, &neg, 1);
-	
 	if (ZERO_FLAG == 0 && (PLUS_FLAG == 1 && d >= 0))
 		t += _memcpy(out, &plus, 1);
-
 	if (!(d == 0 && prec == 0))
 		t += convert_sbase(out, d, "0123456789",
 				flags, 0, prec);
-
 	t += print_neg_width(out, t, flags, w);
-
 	return (t);
 }
 

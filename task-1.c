@@ -45,11 +45,11 @@ unsigned int print_s(va_list args, buffer_r *out,
 
 /**
  * print_S - converts an argument to a string
- * Description: Non-printable characteres (ASCII values < 32 or >= 127) value in hex
+ * Description: Non-printable char (ASCII values < 32 or >= 127) value in hex
  * @args: va_list pointing
  * @out: buffer_t struct
  * @flags: Flag modifiers
- * @w: A width modifier
+ * @wid: A width modifier
  * @prec: precision modifier
  * @len: A length modifier
  * Return: number of bytes

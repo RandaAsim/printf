@@ -1,5 +1,6 @@
 /**
  * format_printf - the format string for _printf
+ * Description: function int
  * @format: charcter
  * @out: buffer
  * @args: va_list of arguments
