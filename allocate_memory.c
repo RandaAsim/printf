@@ -1,72 +1,70 @@
 #include "main.h"
 
-unsigned int _memcpy(buffer_r *out, const char *src, unsigned int n);
-void free_buffer(buffer_r *out);
-buffer_r *init_buffer(void);
+unsigned int _memcpy(buffer_t *output, const char *src, unsigned int n);
+void free_buffer(buffer_t *output);
+buffer_t *init_buffer(void);
 
 /**
- * _memcpy - copies n bytes from memory area
- * @out: buffer_t struct
- * @src: pointer to the memory area
- * @n: number of bytes
- * Return: n
-*/
-unsigned int _memcpy(buffer_r *out, const char *src, unsigned int n)
+ * _memcpy - Copies n bytes from memory area src
+ * @output: A buffer_t struct
+ * @src: A pointer to the memory area to copy
+ * @n: The number of bytes to be copied
+ * Return: The number of bytes copied
+ */
+unsigned int _memcpy(buffer_t *output, const char *src, unsigned int n)
 {
 	unsigned int index;
 
 	for (index = 0; index < n; index++)
 	{
-		*(out->buffer) = *(src + index);
-		(out->len)++;
+		*(output->buffer) = *(src + index);
+		(output->len)++;
 
-		if (out->len == 1024)
+		if (output->len == 1024)
 		{
-			write(1, out->start, out->len);
-			out->buffer = out->start;
-			out->len = 0;
+			write(1, output->start, output->len);
+			output->buffer = output->start;
+			output->len = 0;
 		}
 
 		else
-			(out->buffer)++;
+			(output->buffer)++;
 	}
 
 	return (n);
 }
 
 /**
- * free_buffer - Frees a buffer_r struct
- * @out: The buffer_r struct
-*/
-
-void free_buffer(buffer_r *out)
+ * free_buffer - Frees a buffer_t struct
+ * @output: The buffer_t struct to be freed
+ */
+void free_buffer(buffer_t *output)
 {
-	free(out->start);
-	free(out);
+	free(output->start);
+	free(output);
 }
 
 /**
- * init_buffer - Initializes a variable
- * Return: pointer to initialized buffer_r
-*/
-
-buffer_r *init_buffer(void)
+ * init_buffer - Initializes a variable of struct type buffer_t
+ * Return: A pointer to the initialized buffer_t
+ */
+buffer_t *init_buffer(void)
 {
-	buffer_r *out;
+	buffer_t *output;
 
-	out = malloc(sizeof(buffer_r));
-	if (out == NULL)
+	output = malloc(sizeof(buffer_t));
+	if (output == NULL)
 		return (NULL);
 
-	out->buffer = malloc(sizeof(char) * 1024);
-	if (out->buffer == NULL)
+	output->buffer = malloc(sizeof(char) * 1024);
+	if (output->buffer == NULL)
 	{
-		free(out);
+		free(output);
 		return (NULL);
 	}
 
-	out->start = out->buffer;
-	out->len = 0;
+	output->start = output->buffer;
+	output->len = 0;
 
-	return (out);
+	return (output);
 }

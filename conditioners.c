@@ -1,81 +1,79 @@
 #include "main.h"
 
-unsigned int print_width(buffer_r *out, unsigned int printed,
-		unsigned char flags, int w);
-unsigned int print_string_width(buffer_r *out,
-		unsigned char flags, int w, int prec, int size);
-unsigned int print_neg_width(buffer_r *out, unsigned int printed,
-		unsigned char flags, int w);
+unsigned int print_width(buffer_t *output, unsigned int printed,
+		unsigned char flags, int wid);
+unsigned int print_string_width(buffer_t *output,
+		unsigned char flags, int wid, int prec, int size);
+unsigned int print_neg_width(buffer_t *output, unsigned int printed,
+		unsigned char flags, int wid);
 
 /**
- * print_width - width modifier
- * @out: buffer_r struct
- * @printed: number
+ * print_width - Stores leading spaces to a buffer for a width modifier
+ * @output: A buffer_t struct containing a character array
+ * @printed: The current number of characters
  * @flags: Flag modifiers
- * @w:  width modifier
- * Return: The number of bytes
-*/
-
-unsigned int print_width(buffer_r *out, unsigned int printed,
-		unsigned char flags, int w)
+ * @wid: A width modifier
+ * Return: The number of bytes stored to the buffer
+ */
+unsigned int print_width(buffer_t *output, unsigned int printed,
+		unsigned char flags, int wid)
 {
-	unsigned int t = 0;
+	unsigned int ret = 0;
 	char width = ' ';
 
 	if (NEG_FLAG == 0)
 	{
-		for (w -= printed; w > 0;)
-			r += _memcpy(out, &width, 1);
+		for (wid -= printed; wid > 0;)
+			ret += _memcpy(output, &width, 1);
 	}
 
-	return (t);
+	return (ret);
 }
 
 /**
- * print_string_width - width modifier
- * @out: buffer_t struct
+ * * print_string_width - Stores leading spaces to a buffer for a width modifier
+ * @output: A buffer_t struct containing a character array
  * @flags: Flag modifiers
- * @w: width modifier
- * @prec: precision modifier
- * @size: size of string
- * Return: The number of bytes
-*/
-
-unsigned int print_string_width(buffer_r *out,
-		unsigned char flags, int w, int prec, int size)
+ * @wid: A width modifier
+ * @prec: A precision modifier
+ * @size: The size of the string
+ * Return: The number of bytes stored to the buffer
+ */
+unsigned int print_string_width(buffer_t *output,
+		unsigned char flags, int wid, int prec, int size)
 {
-	unsigned int t = 0;
+	unsigned int ret = 0;
 	char width = ' ';
 
 	if (NEG_FLAG == 0)
 	{
 		wid -= (prec == -1) ? size : prec;
-		for (; w > 0; w--)
-			t += _memcpy(out, &width, 1);
+		for (; wid > 0; wid--)
+			ret += _memcpy(output, &width, 1);
 	}
 
-	return (t);
+	return (ret);
 }
 
 /**
- * print_neg_width - buffer for a '-' flag
- * @out: buffer_t struct
- * @printed: number of bytes
- * @flags: Flag modifiers
- * @w: width modifier
- * Return: The number of bytes
-*/
-
-unsigned int print_neg_width(buffer_r *out, unsigned int printed,
-		unsigned char flags, int w)
+ * print_neg_width - Stores trailing spaces to a buffer for a '-' flag
+ * @output: A buffer_t struct containing a character array
+ * @printed: The current number of bytes
+ * @flags: Flag modifier
+ * @wid: A width modifier
+ * Return: The number of bytes stored to the buffer
+ */
+unsigned int print_neg_width(buffer_t *output, unsigned int printed,
+		unsigned char flags, int wid)
 {
-	unsigned int t = 0;
+	unsigned int ret = 0;
 	char width = ' ';
 
 	if (NEG_FLAG == 1)
 	{
-		for (w -= printed; w > 0; w--)
-			t += _memcpy(out, &width, 1);
+		for (wid -= printed; wid > 0; wid--)
+			ret += _memcpy(output, &width, 1);
 	}
-	return (t);
+
+	return (ret);
 }
