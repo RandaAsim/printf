@@ -7,7 +7,7 @@
  */
 int _printf(const char *format, ...)
 {
-	buffer_t *out;
+	buffer_r *out;
 	va_list args;
 	int t;
 
